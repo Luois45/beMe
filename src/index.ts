@@ -1,26 +1,36 @@
-import { Injector, Logger, webpack } from "replugged";
+import { Injector, webpack } from "replugged";
 
-const inject = new Injector();
-const logger = Logger.plugin("PluginTemplate");
+const injector = new Injector();
+let intervalId: NodeJS.Timeout | null = null;
+
+export function waitForValue(): Promise<any> {
+  return new Promise((resolve) => {
+    const interval = setInterval(() => {
+      const v = webpack.getByProps("getCurrentUser").getCurrentUser();
+      if (typeof v !== "undefined") {
+        if (v.hasOwnProperty("email")) {
+          clearInterval(interval);
+          resolve(v);
+        }
+      }
+    }, 1);
+  });
+}
 
 export async function start(): Promise<void> {
-  const typingMod = await webpack.waitForModule<{
-    startTyping: (channelId: string) => void;
-  }>(webpack.filters.byProps("startTyping"));
-  const getChannelMod = await webpack.waitForModule<{
-    getChannel: (id: string) => {
-      name: string;
-    };
-  }>(webpack.filters.byProps("getChannel"));
+  const v = await waitForValue();
 
-  if (typingMod && getChannelMod) {
-    inject.instead(typingMod, "startTyping", ([channel]) => {
-      const channelObj = getChannelMod.getChannel(channel);
-      logger.log(`Typing prevented! Channel: #${channelObj?.name ?? "unknown"} (${channel}).`);
-    });
-  }
+  v.email = "me@example.com";
+  v.username = "Me";
+  v.phone = "+1 234 567 8901";
+  v.globalName = "Me";
 }
 
 export function stop(): void {
-  inject.uninjectAll();
+  injector.uninjectAll();
+
+  if (intervalId !== null) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
 }

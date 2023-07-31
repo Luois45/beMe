@@ -1,7 +1,7 @@
 {
-  "name": "plugin-template",
+  "name": "beMe",
   "version": "1.0.0",
-  "description": "A plugin template",
+  "description": "Modifies your local Discord data to display \"Me\" as your username and other identifying information instead of revealing your actual data",
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"

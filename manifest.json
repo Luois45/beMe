@@ -1,19 +1,19 @@
 {
-  "id": "dev.replugged.PluginTemplate",
-  "name": "Plugin Template",
-  "description": "A plugin template",
+  "id": "dev.Luois45.beMe",
+  "name": "beMe",
+  "description": "Modifies your local Discord data to display \"Me\" as your username and other identifying information instead of revealing your actual data",
   "author": {
-    "name": "replugged",
-    "discordID": "1000992611840049192",
-    "github": "replugged-org"
+    "name": "Louis_45",
+    "discordID": "771355749220876310",
+    "github": "Luois45"
   },
   "version": "1.0.0",
   "updater": {
     "type": "github",
-    "id": "replugged-org/plugin-template"
+    "id": "Luois45/beMe"
   },
   "license": "MIT",
-  "source": "https://github.com/replugged-org/plugin-template",
+  "source": "https://github.com/Luois45/beMe",
   "type": "replugged-plugin",
   "renderer": "src/index.ts"
 }
